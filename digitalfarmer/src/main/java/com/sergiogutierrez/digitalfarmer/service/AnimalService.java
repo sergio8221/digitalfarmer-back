@@ -1,10 +1,10 @@
-package com.sergiogutierrez.digitalfarmer.dao;
+package com.sergiogutierrez.digitalfarmer.service;
 
 import java.util.List;
 
 import com.sergiogutierrez.digitalfarmer.entity.Animal;
 
-public interface AnimalDAO {
+public interface AnimalService {
 
 	public List<Animal> getAll();
 
