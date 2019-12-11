@@ -16,7 +16,7 @@ import com.sergiogutierrez.digitalfarmer.entity.Animal;
 import com.sergiogutierrez.digitalfarmer.service.AnimalService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/animals")
 public class AnimalController {
 
 	private AnimalService animalService;
@@ -26,12 +26,12 @@ public class AnimalController {
 		this.animalService = animalService;
 	}
 
-	@GetMapping("/animals")
+	@GetMapping("/")
 	public List<Animal> getAll() {
 		return animalService.getAll();
 	}
 
-	@GetMapping("/animal/{animalId}")
+	@GetMapping("/{animalId}")
 	public Animal getById(@PathVariable int animalId) {
 		Animal animal = animalService.getById(animalId);
 
@@ -42,8 +42,8 @@ public class AnimalController {
 		return animal;
 	}
 
-	@PostMapping("/animal")
-	public Animal addAnimal(@RequestBody Animal animal) {
+	@PostMapping("/")
+	public Animal add(@RequestBody Animal animal) {
 		// Force a save in case an id is passed
 		animal.setId(0);
 
@@ -52,15 +52,15 @@ public class AnimalController {
 		return animal;
 	}
 
-	@PutMapping("/animal")
-	public Animal updateAnimal(@RequestBody Animal animal) {
+	@PutMapping("/")
+	public Animal update(@RequestBody Animal animal) {
 		animalService.save(animal);
 
 		return animal;
 	}
 
-	@DeleteMapping("/animal/{animalId}")
-	public int deleteAnimal(@PathVariable int animalId) {
+	@DeleteMapping("/{animalId}")
+	public int delete(@PathVariable int animalId) {
 
 		Animal animal = animalService.getById(animalId);
 

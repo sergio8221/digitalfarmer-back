@@ -7,57 +7,54 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import com.sergiogutierrez.digitalfarmer.entity.Animal;
+import com.sergiogutierrez.digitalfarmer.entity.Treatment;
 
-@Repository
-public class AnimalDAOImpl implements AnimalDAO {
+public class TreatmentDAOImpl implements TreatmentDAO {
 
 	// Define field for entity manager
 	private EntityManager entityManager;
 
 	// Set up constructor injection
 	@Autowired
-	public AnimalDAOImpl(EntityManager entityManager) {
+	public TreatmentDAOImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 
 	@Override
-	public List<Animal> getAll() {
-
+	public List<Treatment> getAll() {
 		// Get current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Create query
-		Query<Animal> query = currentSession.createQuery("from Animal", Animal.class);
+		Query<Treatment> query = currentSession.createQuery("from Treatment", Treatment.class);
 
 		// Execute query and get result list
-		List<Animal> animals = query.getResultList();
+		List<Treatment> treatments = query.getResultList();
 
 		// Return results
-		return animals;
+		return treatments;
 	}
 
 	@Override
-	public Animal getById(int id) {
+	public Treatment getById(int id) {
 		// Get current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Get the object
-		Animal animal = currentSession.get(Animal.class, id);
+		Treatment treatment = currentSession.get(Treatment.class, id);
 
 		// Return results
-		return animal;
+		return treatment;
 	}
 
 	@Override
-	public void save(Animal animal) {
+	public void save(Treatment treatment) {
 		// Get current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Save object
-		currentSession.saveOrUpdate(animal);
+		currentSession.saveOrUpdate(treatment);
 
 	}
 
@@ -67,9 +64,9 @@ public class AnimalDAOImpl implements AnimalDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Delete object with primary key
-		Query query = currentSession.createQuery("delete from Animal where id=:animalId");
+		Query query = currentSession.createQuery("delete from Treatment where id=:treatmentId");
 
-		query.setParameter("animalId", id);
+		query.setParameter("treatmentId", id);
 
 		query.executeUpdate();
 

@@ -7,57 +7,54 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import com.sergiogutierrez.digitalfarmer.entity.Animal;
+import com.sergiogutierrez.digitalfarmer.entity.Placing;
 
-@Repository
-public class AnimalDAOImpl implements AnimalDAO {
+public class PlacingDAOImpl implements PlacingDAO {
 
 	// Define field for entity manager
 	private EntityManager entityManager;
 
 	// Set up constructor injection
 	@Autowired
-	public AnimalDAOImpl(EntityManager entityManager) {
+	public PlacingDAOImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 
 	@Override
-	public List<Animal> getAll() {
-
+	public List<Placing> getAll() {
 		// Get current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Create query
-		Query<Animal> query = currentSession.createQuery("from Animal", Animal.class);
+		Query<Placing> query = currentSession.createQuery("from Placing", Placing.class);
 
 		// Execute query and get result list
-		List<Animal> animals = query.getResultList();
+		List<Placing> placings = query.getResultList();
 
 		// Return results
-		return animals;
+		return placings;
 	}
 
 	@Override
-	public Animal getById(int id) {
+	public Placing getById(int id) {
 		// Get current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Get the object
-		Animal animal = currentSession.get(Animal.class, id);
+		Placing placing = currentSession.get(Placing.class, id);
 
 		// Return results
-		return animal;
+		return placing;
 	}
 
 	@Override
-	public void save(Animal animal) {
+	public void save(Placing placing) {
 		// Get current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Save object
-		currentSession.saveOrUpdate(animal);
+		currentSession.saveOrUpdate(placing);
 
 	}
 
@@ -67,9 +64,9 @@ public class AnimalDAOImpl implements AnimalDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// Delete object with primary key
-		Query query = currentSession.createQuery("delete from Animal where id=:animalId");
+		Query query = currentSession.createQuery("delete from Placing where id=:placingId");
 
-		query.setParameter("animalId", id);
+		query.setParameter("placingId", id);
 
 		query.executeUpdate();
 
