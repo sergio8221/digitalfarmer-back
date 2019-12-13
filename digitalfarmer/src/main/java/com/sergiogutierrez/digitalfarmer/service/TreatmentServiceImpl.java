@@ -2,9 +2,12 @@ package com.sergiogutierrez.digitalfarmer.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.sergiogutierrez.digitalfarmer.dao.TreatmentDAO;
 import com.sergiogutierrez.digitalfarmer.entity.Treatment;
 
+@Service
 public class TreatmentServiceImpl implements TreatmentService {
 
 	private TreatmentDAO treatmentDAO;

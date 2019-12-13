@@ -2,9 +2,12 @@ package com.sergiogutierrez.digitalfarmer.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.sergiogutierrez.digitalfarmer.dao.PlacingDAO;
 import com.sergiogutierrez.digitalfarmer.entity.Placing;
 
+@Service
 public class PlacingServiceImpl implements PlacingService {
 
 	private PlacingDAO placingDAO;
