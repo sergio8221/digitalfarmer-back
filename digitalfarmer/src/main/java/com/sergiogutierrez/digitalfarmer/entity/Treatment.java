@@ -1,11 +1,17 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ForeignKey;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "treatments")
@@ -19,18 +25,19 @@ public class Treatment {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "id_animal")
-	private int idAnimal;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JsonIgnore
+	@JoinColumn(name = "id_animal", foreignKey = @ForeignKey(name = "id_animal"))
+	private Animal animal;
 
 	public Treatment() {
 		// Empty constructor
 	}
 
-	public Treatment(int id, String description, int idAnimal) {
+	public Treatment(int id, String description) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.idAnimal = idAnimal;
 	}
 
 	public int getId() {
@@ -49,17 +56,17 @@ public class Treatment {
 		this.description = description;
 	}
 
-	public int getIdAnimal() {
-		return idAnimal;
+	public Animal getAnimal() {
+		return animal;
 	}
 
-	public void setIdAnimal(int idAnimal) {
-		this.idAnimal = idAnimal;
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
 	}
 
 	@Override
 	public String toString() {
-		return "Treatment [id=" + id + ", description=" + description + ", idAnimal=" + idAnimal + "]";
+		return "Treatment [id=" + id + ", description=" + description + ", animal=" + animal + "]";
 	}
 
 }

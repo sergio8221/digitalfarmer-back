@@ -1,13 +1,21 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "animals")
@@ -30,23 +38,27 @@ public class Animal {
 	@Column(name = "sex")
 	private String sex;
 
-	@Column(name = "id_species")
-	private int idSpecies;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_Species", foreignKey = @ForeignKey(name = "id_Species"))
+	private Species species;
 
-	@Column(name = "id_placing")
-	private int idPlacing;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_Placing", foreignKey = @ForeignKey(name = "id_Placing"))
+	private Placing placing;
+
+	@OneToMany(mappedBy = "animal", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Treatment> treatments;
 
 	public Animal() {
 		// Empty constructor
 	}
 
-	public Animal(String name, String code, Date born, String sex, int idSpecies, int idPlacing) {
+	public Animal(String name, String code, Date born, String sex) {
 		this.name = name;
 		this.code = code;
 		this.born = born;
 		this.sex = sex;
-		this.idSpecies = idSpecies;
-		this.idPlacing = idPlacing;
 	}
 
 	public int getId() {
@@ -89,26 +101,34 @@ public class Animal {
 		this.sex = sex;
 	}
 
-	public int getIdSpecies() {
-		return idSpecies;
+	public List<Treatment> getTreatments() {
+		return treatments;
 	}
 
-	public void setIdSpecies(int idSpecies) {
-		this.idSpecies = idSpecies;
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
 	}
 
-	public int getIdPlacing() {
-		return idPlacing;
+	public Species getSpecies() {
+		return species;
 	}
 
-	public void setIdPlacing(int idPlacing) {
-		this.idPlacing = idPlacing;
+	public void setSpecies(Species species) {
+		this.species = species;
+	}
+
+	public Placing getPlacing() {
+		return placing;
+	}
+
+	public void setPlacing(Placing placing) {
+		this.placing = placing;
 	}
 
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", name=" + name + ", code=" + code + ", born=" + born + ", sex=" + sex
-				+ ", idSpecies=" + idSpecies + ", idPlacing=" + idPlacing + "]";
+				+ ", species=" + species + ", placing=" + placing + ", treatments=" + treatments + "]";
 	}
 
 }
