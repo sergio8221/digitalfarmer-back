@@ -1,11 +1,19 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "seasons")
@@ -25,20 +33,27 @@ public class Season {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "id_field")
-	private int idField;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_field")
+	private Field field;
+
+	@OneToMany(mappedBy = "season", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<CropEvent> cropEvents;
 
 	public Season() {
 		// Empty constructor
 	}
 
-	public Season(int id, String crop, int year, String description, int idField) {
+	public Season(int id, String crop, int year, String description, Field field, List<CropEvent> cropEvents) {
 		super();
 		this.id = id;
 		this.crop = crop;
 		this.year = year;
 		this.description = description;
-		this.idField = idField;
+		this.field = field;
+		this.cropEvents = cropEvents;
 	}
 
 	public int getId() {
@@ -73,18 +88,26 @@ public class Season {
 		this.description = description;
 	}
 
-	public int getIdField() {
-		return idField;
+	public Field getField() {
+		return field;
 	}
 
-	public void setIdField(int idField) {
-		this.idField = idField;
+	public void setField(Field field) {
+		this.field = field;
+	}
+
+	public List<CropEvent> getCropEvents() {
+		return cropEvents;
+	}
+
+	public void setCropEvents(List<CropEvent> cropEvents) {
+		this.cropEvents = cropEvents;
 	}
 
 	@Override
 	public String toString() {
-		return "Season [id=" + id + ", crop=" + crop + ", year=" + year + ", description=" + description + ", idField="
-				+ idField + "]";
+		return "Season [id=" + id + ", crop=" + crop + ", year=" + year + ", description=" + description + ", field="
+				+ field + ", cropEvents=" + cropEvents + "]";
 	}
 
 }

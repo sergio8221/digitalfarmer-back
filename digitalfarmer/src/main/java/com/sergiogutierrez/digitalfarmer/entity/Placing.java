@@ -1,11 +1,19 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "placings")
@@ -19,18 +27,25 @@ public class Placing {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "id_farm")
-	private int idFarm;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_farm")
+	private Farm farm;
+
+	@OneToMany(mappedBy = "placing", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Animal> animals;
 
 	public Placing() {
 		// Empty constructor
 	}
 
-	public Placing(int id, String name, int idFarm) {
+	public Placing(int id, String name, Farm farm, List<Animal> animals) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.idFarm = idFarm;
+		this.farm = farm;
+		this.animals = animals;
 	}
 
 	public int getId() {
@@ -49,17 +64,25 @@ public class Placing {
 		this.name = name;
 	}
 
-	public int getIdFarm() {
-		return idFarm;
+	public Farm getFarm() {
+		return farm;
 	}
 
-	public void setIdFarm(int idFarm) {
-		this.idFarm = idFarm;
+	public void setFarm(Farm farm) {
+		this.farm = farm;
+	}
+
+	public List<Animal> getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(List<Animal> animals) {
+		this.animals = animals;
 	}
 
 	@Override
 	public String toString() {
-		return "Placing [id=" + id + ", name=" + name + ", idFarm=" + idFarm + "]";
+		return "Placing [id=" + id + ", name=" + name + ", farm=" + farm + ", animals=" + animals + "]";
 	}
 
 }

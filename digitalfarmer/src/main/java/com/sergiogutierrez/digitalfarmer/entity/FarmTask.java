@@ -2,12 +2,17 @@ package com.sergiogutierrez.digitalfarmer.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "farm_tasks")
@@ -27,20 +32,22 @@ public class FarmTask {
 	@Column(name = "completed")
 	private boolean completed;
 
-	@Column(name = "id_farm")
-	private int idFarm;
+	@JsonIgnore
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_farm")
+	private Farm farm;
 
 	public FarmTask() {
 		// Empty constructor
 	}
 
-	public FarmTask(int id, String description, Date date, boolean completed, int idFarm) {
+	public FarmTask(int id, String description, Date date, boolean completed, Farm farm) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.date = date;
 		this.completed = completed;
-		this.idFarm = idFarm;
+		this.farm = farm;
 	}
 
 	public int getId() {
@@ -75,18 +82,18 @@ public class FarmTask {
 		this.completed = completed;
 	}
 
-	public int getIdFarm() {
-		return idFarm;
+	public Farm getFarm() {
+		return farm;
 	}
 
-	public void setIdFarm(int idFarm) {
-		this.idFarm = idFarm;
+	public void setFarm(Farm farm) {
+		this.farm = farm;
 	}
 
 	@Override
 	public String toString() {
 		return "FarmTask [id=" + id + ", description=" + description + ", date=" + date + ", completed=" + completed
-				+ ", idFarm=" + idFarm + "]";
+				+ ", farm=" + farm + "]";
 	}
 
 }

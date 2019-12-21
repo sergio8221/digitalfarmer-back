@@ -1,10 +1,12 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,16 +27,21 @@ public class User {
 	@Column(name = "name")
 	private String name;
 
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private Farm farm;
+
 	public User() {
 		// Empty constructor
 	}
 
-	public User(int id, String email, String code, String name) {
+	public User(int id, String email, String code, String name, Farm farm) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.code = code;
 		this.name = name;
+		this.farm = farm;
 	}
 
 	public int getId() {
@@ -69,9 +76,17 @@ public class User {
 		this.name = name;
 	}
 
+	public Farm getFarm() {
+		return farm;
+	}
+
+	public void setFarm(Farm farm) {
+		this.farm = farm;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", code=" + code + ", name=" + name + "]";
+		return "User [id=" + id + ", email=" + email + ", code=" + code + ", name=" + name + ", farm=" + farm + "]";
 	}
 
 }

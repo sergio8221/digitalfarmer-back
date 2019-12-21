@@ -1,11 +1,19 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "farms")
@@ -19,18 +27,33 @@ public class Farm {
 	@Column(name = "location")
 	private String location;
 
-	@Column(name = "id_user")
-	private int idUser;
+	@JsonIgnore
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_user")
+	private User user;
+
+	@OneToMany(mappedBy = "farm", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Placing> placings;
+
+	@OneToMany(mappedBy = "farm", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<FarmTask> tasks;
+
+	@OneToMany(mappedBy = "farm", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Machine> machines;
 
 	public Farm() {
 		// Empty constructor
 	}
 
-	public Farm(int id, String location, int idUser) {
+	public Farm(int id, String location, User user, List<Placing> placings) {
 		super();
 		this.id = id;
 		this.location = location;
-		this.idUser = idUser;
+		this.user = user;
+		this.placings = placings;
 	}
 
 	public int getId() {
@@ -49,17 +72,25 @@ public class Farm {
 		this.location = location;
 	}
 
-	public int getIdUser() {
-		return idUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Placing> getPlacings() {
+		return placings;
+	}
+
+	public void setPlacings(List<Placing> placings) {
+		this.placings = placings;
 	}
 
 	@Override
 	public String toString() {
-		return "Farm [id=" + id + ", location=" + location + ", idUser=" + idUser + "]";
+		return "Farm [id=" + id + ", location=" + location + ", user=" + user + ", placings=" + placings + "]";
 	}
 
 }

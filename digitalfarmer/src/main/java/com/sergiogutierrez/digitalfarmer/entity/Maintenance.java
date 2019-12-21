@@ -1,11 +1,16 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "maintenances")
@@ -19,18 +24,20 @@ public class Maintenance {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "id_machine")
-	private int idMachine;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_machine")
+	private Machine machine;
 
 	public Maintenance() {
 		// Empty constructor
 	}
 
-	public Maintenance(int id, String description, int idMachine) {
+	public Maintenance(int id, String description, Machine machine) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.idMachine = idMachine;
+		this.machine = machine;
 	}
 
 	public int getId() {
@@ -49,17 +56,17 @@ public class Maintenance {
 		this.description = description;
 	}
 
-	public int getIdMachine() {
-		return idMachine;
+	public Machine getMachine() {
+		return machine;
 	}
 
-	public void setIdMachine(int idMachine) {
-		this.idMachine = idMachine;
+	public void setMachine(Machine machine) {
+		this.machine = machine;
 	}
 
 	@Override
 	public String toString() {
-		return "Maintenance [id=" + id + ", description=" + description + ", idMachine=" + idMachine + "]";
+		return "Maintenance [id=" + id + ", description=" + description + ", machine=" + machine + "]";
 	}
 
 }

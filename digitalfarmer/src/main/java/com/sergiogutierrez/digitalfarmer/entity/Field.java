@@ -1,11 +1,19 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "fields")
@@ -25,20 +33,27 @@ public class Field {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "id_farm")
-	private int idFarm;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_farm")
+	private Farm farm;
+
+	@OneToMany(mappedBy = "field", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Season> seasons;
 
 	public Field() {
 		// Empty constructor
 	}
 
-	public Field(int id, String location, float area, String description, int idFarm) {
+	public Field(int id, String location, float area, String description, Farm farm, List<Season> seasons) {
 		super();
 		this.id = id;
 		this.location = location;
 		this.area = area;
 		this.description = description;
-		this.idFarm = idFarm;
+		this.farm = farm;
+		this.seasons = seasons;
 	}
 
 	public int getId() {
@@ -73,18 +88,26 @@ public class Field {
 		this.description = description;
 	}
 
-	public int getIdFarm() {
-		return idFarm;
+	public Farm getFarm() {
+		return farm;
 	}
 
-	public void setIdFarm(int idFarm) {
-		this.idFarm = idFarm;
+	public void setFarm(Farm farm) {
+		this.farm = farm;
+	}
+
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(List<Season> seasons) {
+		this.seasons = seasons;
 	}
 
 	@Override
 	public String toString() {
 		return "Field [id=" + id + ", location=" + location + ", area=" + area + ", description=" + description
-				+ ", idFarm=" + idFarm + "]";
+				+ ", farm=" + farm + ", seasons=" + seasons + "]";
 	}
 
 }

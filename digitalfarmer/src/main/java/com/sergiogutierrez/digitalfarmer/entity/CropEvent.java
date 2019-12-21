@@ -2,12 +2,17 @@ package com.sergiogutierrez.digitalfarmer.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "crop_events")
@@ -30,21 +35,23 @@ public class CropEvent {
 	@Column(name = "money_earned")
 	private float moneyEarned;
 
-	@Column(name = "id_season")
-	private int idSeason;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_season")
+	private Season season;
 
 	public CropEvent() {
 		// Empty constructor
 	}
 
-	public CropEvent(int id, Date date, String description, float moneySpent, float moneyEarned, int idSeason) {
+	public CropEvent(int id, Date date, String description, float moneySpent, float moneyEarned, Season season) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.description = description;
 		this.moneySpent = moneySpent;
 		this.moneyEarned = moneyEarned;
-		this.idSeason = idSeason;
+		this.season = season;
 	}
 
 	public int getId() {
@@ -87,18 +94,18 @@ public class CropEvent {
 		this.moneyEarned = moneyEarned;
 	}
 
-	public int getIdSeason() {
-		return idSeason;
+	public Season getSeason() {
+		return season;
 	}
 
-	public void setIdSeason(int idSeason) {
-		this.idSeason = idSeason;
+	public void setSeason(Season season) {
+		this.season = season;
 	}
 
 	@Override
 	public String toString() {
 		return "CropEvent [id=" + id + ", date=" + date + ", description=" + description + ", moneySpent=" + moneySpent
-				+ ", moneyEarned=" + moneyEarned + ", idSeason=" + idSeason + "]";
+				+ ", moneyEarned=" + moneyEarned + ", season=" + season + "]";
 	}
 
 }

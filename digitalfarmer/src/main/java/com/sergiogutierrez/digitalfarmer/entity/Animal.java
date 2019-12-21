@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,11 +38,12 @@ public class Animal {
 	private String sex;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
-	@JoinColumn(name = "id_Species", foreignKey = @ForeignKey(name = "id_Species"))
+	@JoinColumn(name = "id_species")
 	private Species species;
 
+	@JsonIgnore
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
-	@JoinColumn(name = "id_Placing", foreignKey = @ForeignKey(name = "id_Placing"))
+	@JoinColumn(name = "id_placing")
 	private Placing placing;
 
 	@OneToMany(mappedBy = "animal", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,

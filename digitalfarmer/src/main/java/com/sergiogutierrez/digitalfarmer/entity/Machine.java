@@ -1,13 +1,20 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "machinery")
@@ -27,20 +34,27 @@ public class Machine {
 	@Column(name = "prize")
 	private float prize;
 
-	@Column(name = "id_farm")
-	private int idFarm;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_farm")
+	private Farm farm;
+
+	@OneToMany(mappedBy = "machine", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Maintenance> maintenances;
 
 	public Machine() {
 		// Empty constructor
 	}
 
-	public Machine(int id, String name, Date adquisition, float prize, int idFarm) {
+	public Machine(int id, String name, Date adquisition, float prize, Farm farm, List<Maintenance> maintenances) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adquisition = adquisition;
 		this.prize = prize;
-		this.idFarm = idFarm;
+		this.farm = farm;
+		this.maintenances = maintenances;
 	}
 
 	public int getId() {
@@ -75,18 +89,26 @@ public class Machine {
 		this.prize = prize;
 	}
 
-	public int getIdFarm() {
-		return idFarm;
+	public Farm getFarm() {
+		return farm;
 	}
 
-	public void setIdFarm(int idFarm) {
-		this.idFarm = idFarm;
+	public void setFarm(Farm farm) {
+		this.farm = farm;
+	}
+
+	public List<Maintenance> getMaintenances() {
+		return maintenances;
+	}
+
+	public void setMaintenances(List<Maintenance> maintenances) {
+		this.maintenances = maintenances;
 	}
 
 	@Override
 	public String toString() {
-		return "Machine [id=" + id + ", name=" + name + ", adquisition=" + adquisition + ", prize=" + prize
-				+ ", idFarm=" + idFarm + "]";
+		return "Machine [id=" + id + ", name=" + name + ", adquisition=" + adquisition + ", prize=" + prize + ", farm="
+				+ farm + ", maintenances=" + maintenances + "]";
 	}
 
 }
