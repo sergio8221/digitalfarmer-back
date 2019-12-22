@@ -7,9 +7,11 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.sergiogutierrez.digitalfarmer.entity.Field;
 
+@Repository
 public class FieldDAOImpl implements FieldDAO {
 
 	// Define field for entity manager
