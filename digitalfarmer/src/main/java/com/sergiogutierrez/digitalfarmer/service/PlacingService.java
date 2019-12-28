@@ -11,6 +11,8 @@ public interface PlacingService {
 	public Placing getById(int id);
 
 	public void save(Placing placing);
+	
+	public void update(Placing placing);
 
 	public void delete(int id);
 

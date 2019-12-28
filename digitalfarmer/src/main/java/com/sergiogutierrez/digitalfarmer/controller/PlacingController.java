@@ -54,7 +54,7 @@ public class PlacingController {
 
 	@PutMapping("/")
 	public Placing update(@RequestBody Placing placing) {
-		placingService.save(placing);
+		placingService.update(placing);
 
 		return placing;
 	}
