@@ -11,7 +11,8 @@ import javax.persistence.ForeignKey;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "treatments")
@@ -25,8 +26,8 @@ public class Treatment {
 	@Column(name = "description")
 	private String description;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
-	@JsonIgnore
 	@JoinColumn(name = "id_animal", foreignKey = @ForeignKey(name = "id_animal"))
 	private Animal animal;
 

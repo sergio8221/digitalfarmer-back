@@ -48,6 +48,11 @@ public class Farm {
 		// Empty constructor
 	}
 
+	public Farm(int id, String location) {
+		this.id = id;
+		this.location = location;
+	}
+
 	public Farm(int id, String location, User user, List<Placing> placings) {
 		super();
 		this.id = id;
