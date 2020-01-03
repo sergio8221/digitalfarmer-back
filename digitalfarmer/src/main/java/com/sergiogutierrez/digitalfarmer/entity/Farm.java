@@ -53,12 +53,15 @@ public class Farm {
 		this.location = location;
 	}
 
-	public Farm(int id, String location, User user, List<Placing> placings) {
+	public Farm(int id, String location, User user, List<Placing> placings, List<FarmTask> tasks,
+			List<Machine> machines) {
 		super();
 		this.id = id;
 		this.location = location;
 		this.user = user;
 		this.placings = placings;
+		this.tasks = tasks;
+		this.machines = machines;
 	}
 
 	public int getId() {
@@ -93,9 +96,26 @@ public class Farm {
 		this.placings = placings;
 	}
 
+	public List<FarmTask> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<FarmTask> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<Machine> getMachines() {
+		return machines;
+	}
+
+	public void setMachines(List<Machine> machines) {
+		this.machines = machines;
+	}
+
 	@Override
 	public String toString() {
-		return "Farm [id=" + id + ", location=" + location + ", user=" + user + ", placings=" + placings + "]";
+		return "Farm [id=" + id + ", location=" + location + ", user=" + user + ", placings=" + placings + ", tasks="
+				+ tasks + ", machines=" + machines + "]";
 	}
 
 }
