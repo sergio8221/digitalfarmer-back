@@ -32,7 +32,6 @@ public class FieldServiceImpl implements FieldService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Field field) {
 		DAO.save(field);
 

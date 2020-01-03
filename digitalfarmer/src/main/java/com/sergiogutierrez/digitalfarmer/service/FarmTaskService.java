@@ -13,6 +13,8 @@ public interface FarmTaskService {
 	public List<FarmTask> getByFarmId(int id);
 
 	public void save(FarmTask farmTask);
+	
+	public void update(FarmTask farmTask);
 
 	public void delete(int id);
 

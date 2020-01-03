@@ -60,7 +60,7 @@ public class FarmTaskController {
 
 	@PutMapping("/")
 	public FarmTask update(@RequestBody FarmTask farmTask) {
-		farmTaskService.save(farmTask);
+		farmTaskService.update(farmTask);
 
 		return farmTask;
 	}

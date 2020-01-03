@@ -32,7 +32,6 @@ public class CropEventServiceImpl implements CropEventService {
 	}
 
 	@Override
-	@Transactional
 	public void save(CropEvent cropEvent) {
 		DAO.save(cropEvent);
 

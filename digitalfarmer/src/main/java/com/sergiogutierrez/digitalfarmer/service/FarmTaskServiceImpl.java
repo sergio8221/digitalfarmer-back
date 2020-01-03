@@ -44,9 +44,21 @@ public class FarmTaskServiceImpl implements FarmTaskService {
 	}
 
 	@Override
-	@Transactional
 	public void save(FarmTask farmTask) {
 		DAO.save(farmTask);
+
+	}
+
+	@Override
+	@Transactional
+	public void update(FarmTask farmTask) {
+		FarmTask taskToUpdate = DAO.getById(farmTask.getId());
+
+		taskToUpdate.setDescription(farmTask.getDescription());
+		taskToUpdate.setDate(farmTask.getDate());
+		taskToUpdate.setCompleted(farmTask.isCompleted());
+
+		DAO.save(taskToUpdate);
 
 	}
 

@@ -32,7 +32,6 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Maintenance maintenance) {
 		DAO.save(maintenance);
 

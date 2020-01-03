@@ -32,7 +32,6 @@ public class MachineServiceImpl implements MachineService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Machine machine) {
 		DAO.save(machine);
 

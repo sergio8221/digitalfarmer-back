@@ -32,7 +32,6 @@ public class SeasonServiceImpl implements SeasonService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Season season) {
 		DAO.save(season);
 
