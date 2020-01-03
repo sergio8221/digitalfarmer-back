@@ -1,5 +1,7 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,12 @@ public class Treatment {
 	@Column(name = "description")
 	private String description;
 
+	@Column(name = "date_init")
+	private Date dateInit;
+
+	@Column(name = "date_end")
+	private Date dateEnd;
+
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "id_animal", foreignKey = @ForeignKey(name = "id_animal"))
@@ -35,10 +43,13 @@ public class Treatment {
 		// Empty constructor
 	}
 
-	public Treatment(int id, String description) {
+	public Treatment(int id, String description, Date dateInit, Date dateEnd, Animal animal) {
 		super();
 		this.id = id;
 		this.description = description;
+		this.dateInit = dateInit;
+		this.dateEnd = dateEnd;
+		this.animal = animal;
 	}
 
 	public int getId() {
@@ -57,6 +68,22 @@ public class Treatment {
 		this.description = description;
 	}
 
+	public Date getDateInit() {
+		return dateInit;
+	}
+
+	public void setDateInit(Date dateInit) {
+		this.dateInit = dateInit;
+	}
+
+	public Date getDateEnd() {
+		return dateEnd;
+	}
+
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+
 	public Animal getAnimal() {
 		return animal;
 	}
@@ -67,7 +94,8 @@ public class Treatment {
 
 	@Override
 	public String toString() {
-		return "Treatment [id=" + id + ", description=" + description + ", animal=" + animal + "]";
+		return "Treatment [id=" + id + ", description=" + description + ", dateInit=" + dateInit + ", dateEnd="
+				+ dateEnd + ", animal=" + animal + "]";
 	}
 
 }

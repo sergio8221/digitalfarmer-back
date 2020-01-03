@@ -18,7 +18,7 @@ import com.sergiogutierrez.digitalfarmer.service.TreatmentService;
 @RestController
 @RequestMapping("/api/treatments")
 public class TreatmentController {
-	
+
 	private TreatmentService treatmentService;
 
 	@Autowired
@@ -42,6 +42,11 @@ public class TreatmentController {
 		return treatment;
 	}
 
+	@GetMapping("/animal/{animalId}")
+	public List<Treatment> getByAnimalId(@PathVariable int animalId) {
+		return treatmentService.getByAnimalId(animalId);
+	}
+
 	@PostMapping("/")
 	public Treatment add(@RequestBody Treatment treatment) {
 		// Force a save in case an id is passed
@@ -54,7 +59,7 @@ public class TreatmentController {
 
 	@PutMapping("/")
 	public Treatment update(@RequestBody Treatment treatment) {
-		treatmentService.save(treatment);
+		treatmentService.update(treatment);
 
 		return treatment;
 	}

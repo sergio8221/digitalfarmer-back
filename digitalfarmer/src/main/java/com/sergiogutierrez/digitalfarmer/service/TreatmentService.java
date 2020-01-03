@@ -10,7 +10,11 @@ public interface TreatmentService {
 
 	public Treatment getById(int id);
 
+	public List<Treatment> getByAnimalId(int id);
+
 	public void save(Treatment treatment);
+	
+	public void update(Treatment treatment);
 
 	public void delete(int id);
 

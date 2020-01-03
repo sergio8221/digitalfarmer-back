@@ -9,6 +9,8 @@ public interface PlacingService {
 	public List<Placing> getAll();
 
 	public Placing getById(int id);
+	
+	public List<Placing> getByFarmId(int id);
 
 	public void save(Placing placing);
 	

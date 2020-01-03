@@ -54,7 +54,7 @@ public class AnimalController {
 
 	@PutMapping("/")
 	public Animal update(@RequestBody Animal animal) {
-		animalService.save(animal);
+		animalService.update(animal);
 
 		return animal;
 	}

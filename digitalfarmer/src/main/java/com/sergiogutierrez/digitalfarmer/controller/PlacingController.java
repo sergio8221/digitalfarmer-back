@@ -41,6 +41,12 @@ public class PlacingController {
 
 		return placing;
 	}
+	
+	@GetMapping("/farm/{farmId}")
+	public List<Placing> getByFarmId(@PathVariable int farmId) {
+		return placingService.getByFarmId(farmId);
+	}
+
 
 	@PostMapping("/")
 	public Placing add(@RequestBody Placing placing) {

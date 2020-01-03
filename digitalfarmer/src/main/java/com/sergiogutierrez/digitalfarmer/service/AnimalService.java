@@ -11,6 +11,8 @@ public interface AnimalService {
 	public Animal getById(int id);
 
 	public void save(Animal animal);
+	
+	public void update(Animal animal);
 
 	public void delete(int id);
 

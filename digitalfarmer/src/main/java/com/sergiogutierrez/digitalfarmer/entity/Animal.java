@@ -55,11 +55,17 @@ public class Animal {
 		// Empty constructor
 	}
 
-	public Animal(String name, String code, Date born, String sex) {
+	public Animal(int id, String name, String code, Date born, String sex, Species species, Placing placing,
+			List<Treatment> treatments) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.code = code;
 		this.born = born;
 		this.sex = sex;
+		this.species = species;
+		this.placing = placing;
+		this.treatments = treatments;
 	}
 
 	public int getId() {
@@ -102,14 +108,6 @@ public class Animal {
 		this.sex = sex;
 	}
 
-	public List<Treatment> getTreatments() {
-		return treatments;
-	}
-
-	public void setTreatments(List<Treatment> treatments) {
-		this.treatments = treatments;
-	}
-
 	public Species getSpecies() {
 		return species;
 	}
@@ -124,6 +122,14 @@ public class Animal {
 
 	public void setPlacing(Placing placing) {
 		this.placing = placing;
+	}
+
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
 	}
 
 	@Override
