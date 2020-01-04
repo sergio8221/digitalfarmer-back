@@ -9,8 +9,12 @@ public interface FieldService {
 	public List<Field> getAll();
 
 	public Field getById(int id);
+	
+	public List<Field> getByFarmId(int id);
 
 	public void save(Field field);
+	
+	public void update(Field field);
 
 	public void delete(int id);
 

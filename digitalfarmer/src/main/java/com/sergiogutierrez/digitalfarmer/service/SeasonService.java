@@ -9,8 +9,12 @@ public interface SeasonService {
 	public List<Season> getAll();
 
 	public Season getById(int id);
+	
+	public List<Season> getByFieldId(int id);
 
 	public void save(Season season);
+	
+	public void update(Season season);
 
 	public void delete(int id);
 

@@ -44,6 +44,10 @@ public class Farm {
 			CascadeType.REFRESH })
 	private List<Machine> machines;
 
+	@OneToMany(mappedBy = "farm", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private List<Field> fields;
+
 	public Farm() {
 		// Empty constructor
 	}
@@ -54,7 +58,7 @@ public class Farm {
 	}
 
 	public Farm(int id, String location, User user, List<Placing> placings, List<FarmTask> tasks,
-			List<Machine> machines) {
+			List<Machine> machines, List<Field> fields) {
 		super();
 		this.id = id;
 		this.location = location;
@@ -62,6 +66,7 @@ public class Farm {
 		this.placings = placings;
 		this.tasks = tasks;
 		this.machines = machines;
+		this.fields = fields;
 	}
 
 	public int getId() {
@@ -112,10 +117,18 @@ public class Farm {
 		this.machines = machines;
 	}
 
+	public List<Field> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
+
 	@Override
 	public String toString() {
 		return "Farm [id=" + id + ", location=" + location + ", user=" + user + ", placings=" + placings + ", tasks="
-				+ tasks + ", machines=" + machines + "]";
+				+ tasks + ", machines=" + machines + ", fields=" + fields + "]";
 	}
 
 }

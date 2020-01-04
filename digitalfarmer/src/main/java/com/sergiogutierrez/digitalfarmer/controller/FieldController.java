@@ -42,6 +42,11 @@ public class FieldController {
 		return field;
 	}
 
+	@GetMapping("/farm/{farmId}")
+	public List<Field> getByFarmId(@PathVariable int farmId) {
+		return fieldService.getByFarmId(farmId);
+	}
+
 	@PostMapping("/")
 	public Field add(@RequestBody Field field) {
 		// Force a save in case an id is passed
@@ -54,7 +59,7 @@ public class FieldController {
 
 	@PutMapping("/")
 	public Field update(@RequestBody Field field) {
-		fieldService.save(field);
+		fieldService.update(field);
 
 		return field;
 	}

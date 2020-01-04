@@ -9,8 +9,12 @@ public interface CropEventService {
 	public List<CropEvent> getAll();
 
 	public CropEvent getById(int id);
+	
+	public List<CropEvent> getBySeasonId(int id);
 
 	public void save(CropEvent cropEvent);
+	
+	public void update(CropEvent cropEvent);
 
 	public void delete(int id);
 

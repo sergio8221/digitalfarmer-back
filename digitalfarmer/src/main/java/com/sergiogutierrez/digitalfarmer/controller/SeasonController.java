@@ -42,6 +42,11 @@ public class SeasonController {
 		return season;
 	}
 
+	@GetMapping("/field/{fieldId}")
+	public List<Season> getByFieldId(@PathVariable int fieldId) {
+		return seasonService.getByFieldId(fieldId);
+	}
+
 	@PostMapping("/")
 	public Season add(@RequestBody Season season) {
 		// Force a save in case an id is passed
@@ -54,7 +59,7 @@ public class SeasonController {
 
 	@PutMapping("/")
 	public Season update(@RequestBody Season season) {
-		seasonService.save(season);
+		seasonService.update(season);
 
 		return season;
 	}

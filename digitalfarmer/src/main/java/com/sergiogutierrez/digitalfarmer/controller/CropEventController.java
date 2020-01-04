@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sergiogutierrez.digitalfarmer.entity.CropEvent;
+import com.sergiogutierrez.digitalfarmer.entity.Season;
 import com.sergiogutierrez.digitalfarmer.service.CropEventService;
 
 @RestController
@@ -42,6 +43,11 @@ public class CropEventController {
 		return cropEvent;
 	}
 
+	@GetMapping("/season/{seasonId}")
+	public List<CropEvent> getBySeasonId(@PathVariable int seasonId) {
+		return cropEventService.getBySeasonId(seasonId);
+	}
+
 	@PostMapping("/")
 	public CropEvent add(@RequestBody CropEvent cropEvent) {
 		// Force a save in case an id is passed
@@ -54,7 +60,7 @@ public class CropEventController {
 
 	@PutMapping("/")
 	public CropEvent update(@RequestBody CropEvent cropEvent) {
-		cropEventService.save(cropEvent);
+		cropEventService.update(cropEvent);
 
 		return cropEvent;
 	}

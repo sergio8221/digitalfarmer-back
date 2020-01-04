@@ -12,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "crop_events")
@@ -35,7 +36,7 @@ public class CropEvent {
 	@Column(name = "money_earned")
 	private float moneyEarned;
 
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "id_season")
 	private Season season;
