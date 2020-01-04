@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sergiogutierrez.digitalfarmer.entity.FarmTask;
-import com.sergiogutierrez.digitalfarmer.entity.Placing;
 import com.sergiogutierrez.digitalfarmer.service.FarmTaskService;
 
 @RestController

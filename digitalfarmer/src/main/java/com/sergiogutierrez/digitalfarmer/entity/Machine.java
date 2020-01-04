@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "machinery")
@@ -31,10 +32,10 @@ public class Machine {
 	@Column(name = "adquisition")
 	private Date adquisition;
 
-	@Column(name = "prize")
-	private float prize;
+	@Column(name = "cost")
+	private float cost;
 
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "id_farm")
 	private Farm farm;
@@ -47,12 +48,12 @@ public class Machine {
 		// Empty constructor
 	}
 
-	public Machine(int id, String name, Date adquisition, float prize, Farm farm, List<Maintenance> maintenances) {
+	public Machine(int id, String name, Date adquisition, float cost, Farm farm, List<Maintenance> maintenances) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adquisition = adquisition;
-		this.prize = prize;
+		this.cost = cost;
 		this.farm = farm;
 		this.maintenances = maintenances;
 	}
@@ -81,12 +82,12 @@ public class Machine {
 		this.adquisition = adquisition;
 	}
 
-	public float getPrize() {
-		return prize;
+	public float getCost() {
+		return cost;
 	}
 
-	public void setPrize(float prize) {
-		this.prize = prize;
+	public void setCost(float cost) {
+		this.cost = cost;
 	}
 
 	public Farm getFarm() {
@@ -107,7 +108,7 @@ public class Machine {
 
 	@Override
 	public String toString() {
-		return "Machine [id=" + id + ", name=" + name + ", adquisition=" + adquisition + ", prize=" + prize + ", farm="
+		return "Machine [id=" + id + ", name=" + name + ", adquisition=" + adquisition + ", cost=" + cost + ", farm="
 				+ farm + ", maintenances=" + maintenances + "]";
 	}
 

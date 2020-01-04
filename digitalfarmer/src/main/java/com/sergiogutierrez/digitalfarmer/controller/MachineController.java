@@ -41,6 +41,11 @@ public class MachineController {
 
 		return machine;
 	}
+	
+	@GetMapping("/farm/{farmId}")
+	public List<Machine> getByFarmId(@PathVariable int farmId) {
+		return machineService.getByFarmId(farmId);
+	}
 
 	@PostMapping("/")
 	public Machine add(@RequestBody Machine machine) {
@@ -54,7 +59,7 @@ public class MachineController {
 
 	@PutMapping("/")
 	public Machine update(@RequestBody Machine machine) {
-		machineService.save(machine);
+		machineService.update(machine);
 
 		return machine;
 	}

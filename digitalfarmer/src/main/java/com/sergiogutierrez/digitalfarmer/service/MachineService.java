@@ -9,8 +9,12 @@ public interface MachineService {
 	public List<Machine> getAll();
 
 	public Machine getById(int id);
+	
+	public List<Machine> getByFarmId(int id);
 
 	public void save(Machine machine);
+	
+	public void update(Machine machine);
 
 	public void delete(int id);
 
