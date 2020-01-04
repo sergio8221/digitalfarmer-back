@@ -42,6 +42,11 @@ public class MaintenanceController {
 		return maintenance;
 	}
 
+	@GetMapping("/machine/{machineID}")
+	public List<Maintenance> getByFarmId(@PathVariable int machineID) {
+		return maintenanceService.getByMachineId(machineID);
+	}
+
 	@PostMapping("/")
 	public Maintenance add(@RequestBody Maintenance maintenance) {
 		// Force a save in case an id is passed
@@ -54,7 +59,7 @@ public class MaintenanceController {
 
 	@PutMapping("/")
 	public Maintenance update(@RequestBody Maintenance maintenance) {
-		maintenanceService.save(maintenance);
+		maintenanceService.update(maintenance);
 
 		return maintenance;
 	}

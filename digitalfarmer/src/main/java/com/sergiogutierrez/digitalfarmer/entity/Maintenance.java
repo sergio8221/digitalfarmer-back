@@ -1,5 +1,7 @@
 package com.sergiogutierrez.digitalfarmer.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "maintenances")
@@ -24,7 +27,10 @@ public class Maintenance {
 	@Column(name = "description")
 	private String description;
 
-	@JsonIgnore
+	@Column(name = "date")
+	private Date date;
+
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "id_machine")
 	private Machine machine;
@@ -33,10 +39,11 @@ public class Maintenance {
 		// Empty constructor
 	}
 
-	public Maintenance(int id, String description, Machine machine) {
+	public Maintenance(int id, String description, Date date, Machine machine) {
 		super();
 		this.id = id;
 		this.description = description;
+		this.date = date;
 		this.machine = machine;
 	}
 
@@ -56,6 +63,14 @@ public class Maintenance {
 		this.description = description;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	public Machine getMachine() {
 		return machine;
 	}
@@ -66,7 +81,8 @@ public class Maintenance {
 
 	@Override
 	public String toString() {
-		return "Maintenance [id=" + id + ", description=" + description + ", machine=" + machine + "]";
+		return "Maintenance [id=" + id + ", description=" + description + ", date=" + date + ", machine=" + machine
+				+ "]";
 	}
 
 }
