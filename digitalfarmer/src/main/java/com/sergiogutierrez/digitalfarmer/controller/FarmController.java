@@ -42,6 +42,11 @@ public class FarmController {
 		return farm;
 	}
 
+	@GetMapping("/user/{userId}")
+	public Farm getByUserId(@PathVariable int userId) {
+		return farmService.getByUserId(userId);
+	}
+
 	@PostMapping("/")
 	public Farm add(@RequestBody Farm farm) {
 		// Force a save in case an id is passed
@@ -54,7 +59,7 @@ public class FarmController {
 
 	@PutMapping("/")
 	public Farm update(@RequestBody Farm farm) {
-		farmService.save(farm);
+		farmService.update(farm);
 
 		return farm;
 	}

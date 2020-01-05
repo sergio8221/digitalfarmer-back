@@ -10,7 +10,11 @@ public interface FarmService {
 
 	public Farm getById(int id);
 
+	public Farm getByUserId(int id);
+
 	public void save(Farm farm);
+
+	public void update(Farm farm);
 
 	public void delete(int id);
 

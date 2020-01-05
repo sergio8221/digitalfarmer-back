@@ -13,7 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "farms")
@@ -27,7 +28,7 @@ public class Farm {
 	@Column(name = "location")
 	private String location;
 
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "id_user")
 	private User user;

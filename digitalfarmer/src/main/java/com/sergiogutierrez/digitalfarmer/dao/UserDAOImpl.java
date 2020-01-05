@@ -50,6 +50,23 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public User getByEmail(String email) {
+		// Get current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		List<User> users = currentSession.createQuery("from User u where u.email=:email").setParameter("email", email)
+				.getResultList();
+
+		// Check if empty result
+		if (!users.isEmpty()) {
+			return users.get(0);
+		} else {
+			return null;
+		}
+	}
+
 	@Override
 	public void save(User user) {
 		// Get current hibernate session
@@ -60,6 +77,7 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void delete(int id) {
 		// Get current hibernate session

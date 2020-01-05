@@ -9,6 +9,8 @@ public interface UserService {
 	public List<User> getAll();
 
 	public User getById(int id);
+	
+	public User getByEmail(String email);
 
 	public void save(User user);
 

@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,11 +25,12 @@ public class User {
 	private String email;
 
 	@Column(name = "password")
-	private String code;
+	private String password;
 
 	@Column(name = "name")
 	private String name;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToOne(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
 			CascadeType.REFRESH })
 	private Farm farm;
@@ -35,11 +39,11 @@ public class User {
 		// Empty constructor
 	}
 
-	public User(int id, String email, String code, String name, Farm farm) {
+	public User(int id, String email, String password, String name, Farm farm) {
 		super();
 		this.id = id;
 		this.email = email;
-		this.code = code;
+		this.password = password;
 		this.name = name;
 		this.farm = farm;
 	}
@@ -60,12 +64,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getCode() {
-		return code;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getName() {
@@ -86,7 +90,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", code=" + code + ", name=" + name + ", farm=" + farm + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", farm=" + farm
+				+ "]";
 	}
 
 }

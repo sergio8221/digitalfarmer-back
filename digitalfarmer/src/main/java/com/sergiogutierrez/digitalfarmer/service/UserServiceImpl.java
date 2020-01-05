@@ -11,7 +11,7 @@ import com.sergiogutierrez.digitalfarmer.entity.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	private UserDAO DAO;
 
 	@Autowired
@@ -20,19 +20,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
 	public List<User> getAll() {
 		return DAO.getAll();
 	}
 
 	@Override
-	@Transactional
 	public User getById(int id) {
 		return DAO.getById(id);
 	}
 
 	@Override
-	@Transactional
+	public User getByEmail(String email) {
+		return DAO.getByEmail(email);
+	}
+
+	@Override
 	public void save(User user) {
 		DAO.save(user);
 
