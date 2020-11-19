@@ -64,6 +64,10 @@ public class UserController {
 
 	@PostMapping("/")
 	public ResponseEntity<User> add(@RequestBody User user) {
+		if(!isValid(user)) {
+			return ResponseEntity.badRequest().body(null);
+		}
+		
 		User userCheck = service.getByEmail(user.getEmail());
 
 		// I user already exists
@@ -95,6 +99,14 @@ public class UserController {
 		service.delete(userId);
 
 		return userId;
+	}
+	
+	private boolean isValid(User user) {
+		if(user != null) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }
